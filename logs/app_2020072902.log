@@ -1,0 +1,21 @@
+2020-07-29 02:13:33,982 - Git - INFO - Clone https://github.com/mawentao119/darwen_demo.git to path:/Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo
+2020-07-29 02:13:33,983 - Git - INFO - Read Project file: /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo/darwen/conf/project.conf
+2020-07-29 02:13:33,983 - Git - INFO - Copy files from /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo to /Users/tester/PycharmProjects/darwen/work/workspace/myuser/darwen_demo 
+2020-07-29 02:19:44,695 - Git - INFO - Clone https://github.com/mawentao119/darwen_demo.git to path:/Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo
+2020-07-29 02:19:44,696 - Git - INFO - Read Project file: /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo/darwen/conf/project.conf
+2020-07-29 02:19:44,696 - Git - ERROR - Dest dir exists!
+2020-07-29 02:22:00,658 - Git - INFO - Clone https://github.com/mawentao119/darwen_demo.git to path:/Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo
+2020-07-29 02:22:00,658 - Git - INFO - Read Project file: /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo/darwen/conf/project.conf
+2020-07-29 02:22:00,659 - Git - ERROR - Dest dir exists:/Users/tester/PycharmProjects/darwen/work/workspace/myuser/darwen_demo
+2020-07-29 02:23:17,590 - Git - INFO - Clone https://github.com/mawentao119/darwen_demo.git to path:/Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo
+2020-07-29 02:23:17,590 - Git - INFO - Read Project file: /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo/darwen/conf/project.conf
+2020-07-29 02:23:17,591 - Git - INFO - Copy files from /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo to /Users/tester/PycharmProjects/darwen/work/workspace/myuser/darwen_demo 
+2020-07-29 02:39:41,702 - Git - INFO - Clone https://github.com/mawentao119/darwen_demo.git to path:/Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo
+2020-07-29 02:39:41,702 - Git - INFO - Read Project file: /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo/darwen/conf/project.conf
+2020-07-29 02:39:41,703 - Git - INFO - Copy files from /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo to /Users/tester/PycharmProjects/darwen/work/workspace/myuser/darwen_demo 
+2020-07-29 02:50:02,186 - Git - INFO - Clone https://github.com/mawentao119/darwen_demo.git to path:/Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo
+2020-07-29 02:50:02,186 - Git - INFO - Read Project file: /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo/darwen/conf/project.conf
+2020-07-29 02:50:02,187 - Git - INFO - Copy files from /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo to /Users/tester/PycharmProjects/darwen/work/workspace/myuser/darwen_demo 
+2020-07-29 02:52:53,174 - Git - INFO - Clone https://github.com/mawentao119/darwen_demo.git to path:/Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo
+2020-07-29 02:52:53,175 - Git - INFO - Read Project file: /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo/darwen/conf/project.conf
+2020-07-29 02:52:53,175 - Git - INFO - Copy files from /Users/tester/PycharmProjects/darwen/work/runtime/darwen_demo to /Users/tester/PycharmProjects/darwen/work/workspace/myuser/darwen_demo 
