@@ -21,17 +21,17 @@
 
 .header .logo {
     float: left;
-    height: 32px;
-    margin-top: 3px;
+    height: 72px;
+    margin-top: 0px;
 }
 
 .header {
-    margin: 8px 0;
+    margin: 2px 0;
 }
 
 .header li {
     float: left;
-    margin-left: 25px;
+    margin-left: 20px;
 }
 
 .header a {
@@ -50,7 +50,7 @@
 .content {
     border-top: 1px solid #A4A4A4;
     border-bottom: 1px solid #919191;
-    background-color: #202021;
+    background-color: #4040a0;
     height: 632px;
     padding-top: 222px;
 }
@@ -62,7 +62,7 @@
 }
 
 .content h3 {
-    color: #4183c4;
+    color: #63d8ad;
     font-size: 21px;
 }
 
@@ -76,7 +76,7 @@
     border: 1px solid #ccc;
     border-radius: 3px;
     width: 100%;
-    background-color: #fafafa; 
+    background-color: #fafafa;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.075) inset;
     color: #333;
     min-height: 34px;
@@ -96,7 +96,7 @@
 .btn {
     width: 100%;
     color: #fff;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     background-color: #60b044;
     background-image: linear-gradient(#8add6d, #60b044);
     border: 1px solid #5ca941;
@@ -114,7 +114,7 @@
 .btn.btn-white,
 .btn.btn-red {
     color: #333;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
     background-color: #eee;
     background-image: linear-gradient(#fcfcfc, #eee);
     border-color: #d5d5d5;
@@ -126,7 +126,7 @@
 
 .btn.btn-white:hover {
     color: #333;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.9);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.9);
     background-color: #ddd;
     background-image: linear-gradient(#eee, #ddd);
     border-color: #ccc;
@@ -185,7 +185,7 @@
 }
 
 #dir {
-    color: #999; 
+    color: #999;
     font-size: 13px;
 }
 
@@ -198,4 +198,5 @@
     margin-top: 20px;
     font-size: 16px;
 }
+
 /* end sign up */

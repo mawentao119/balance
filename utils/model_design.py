@@ -136,5 +136,5 @@ def gen_casefile(model_file, method, output_file):
 
 if __name__ == '__main__':
     mod = gen_modelgraph(
-        "/Users/tester/PycharmProjects/darwen/work/workspace/Admin/Demo_Project/TestDesign/UserManagement.tmd")
+        "/Users/tester/PycharmProjects/balance/work/workspace/Admin/Demo_Project/TestDesign/UserManagement.tmd")
     # print(mod)
