@@ -20,7 +20,7 @@ class TestDB():
 
         self.confdir = confdir
         self.dbpath = os.path.join(self.confdir, 'DBs')
-        self.exclude_suite = '/work/workspace/Admin/balance'
+        self.exclude_suite = '/work/workspace/Admin/darwen'
         self.refresh_interval = 180  # seconds
         self.refresh_time = self.get_timenow()
         self.DBIDFileName = 'TestCaseDB.id'
@@ -87,7 +87,7 @@ class TestDB():
     def load_project_from_path(self, project_path):
         log.info("加载项目 path: {}".format(project_path))
 
-        userfile = os.path.join(project_path, 'darwen/conf/user.conf')
+        userfile = os.path.join(project_path, 'platforminterface/user.conf')
         log.info("读取用户文件: {}".format(userfile))
         if os.path.exists(userfile):
             with open(userfile, 'r') as f:
@@ -109,7 +109,8 @@ class TestDB():
             log.error(msg)
             return msg
 
-        projectfile = os.path.join(project_path, 'darwen/conf/project.conf')
+        projectfile = os.path.join(
+            project_path, 'platforminterface/project.conf')
         log.info("读取项目配置文件: {}".format(projectfile))
         if os.path.exists(projectfile):
             with open(projectfile, 'r') as f:
@@ -217,15 +218,17 @@ class TestDB():
         self.runsql(
             '''INSERT INTO settings values('自动化配置文件','test_env_conf',"runtime/env.conf",'建议自动化配置项自动生成','user');''')
         self.runsql(
+            '''INSERT INTO settings values('系统说明文件(ReadMe)','project_readme',"runtime/ReadMe.md",'建议自动化配置项自动生成','user');''')
+        self.runsql(
             '''INSERT INTO settings values('最大任务并发数','MAX_PROCS',"20",'只限制手工并发数','system');''')
 
     def init_project_settings(self, key):
         log.info("Load Settings from dir: {}".format(key))
 
-        if key.lower().endswith('balance'):
+        if key.lower().endswith('darwen'):
             return "Do not allowed config this project."
 
-        settings_file = os.path.join(key, 'darwen/conf/settings.conf')
+        settings_file = os.path.join(key, 'platforminterface/settings.conf')
         log.info("Read Settings file: {}".format(settings_file))
         if os.path.exists(settings_file):
             self.runsql(''' DELETE FROM settings;''')
@@ -256,15 +259,16 @@ class TestDB():
         return self.runsql("DELETE FROM settings WHERE item='{}'; ".format(item))
 
     def get_setting(self, item):
+
+        sql = "SELECT item, value from settings WHERE item='{}'; ".format(
+            item)
+        res = self.runsql(sql)
         try:
-            sql = "SELECT item, value from settings WHERE item='{}'; ".format(
-                item)
-            res = self.runsql(sql)
             (item, value) = res.fetchone()
-            return value
-        except TypeError:
-            log.warning("Can not find Setting item: "+item)
+        except Exception as e:
+            log.warn("找不到配置项：{}".format(item))
             return 'unknown'
+        return value
 
     def createtb_user(self):
         self.runsql('''create table user(
@@ -292,65 +296,60 @@ class TestDB():
             return False
 
     def set_casestatus(self, info_key, info_name, status, runuser):
-        try:
-            sql = '''UPDATE testcase SET ontime=datetime('now','localtime'),
-                                         run_status='{}',
-                                         run_user='{}',
-                                         rcd_handtime=datetime('now','localtime')
-                     WHERE info_key='{}' and info_name='{}'; 
-                     '''.format(status, runuser, info_key, info_name)
-            return self.runsql(sql)
-        except TypeError:
-            return None
+
+        sql = '''UPDATE testcase SET ontime=datetime('now','localtime'),
+                                     run_status='{}',
+                                     run_user='{}',
+                                     rcd_handtime=datetime('now','localtime')
+                 WHERE info_key='{}' and info_name='{}'; 
+                 '''.format(status, runuser, info_key, info_name)
+        return self.runsql(sql)
 
     def set_suitestatus(self, info_key, status, runuser):
-        try:
-            sql = '''UPDATE testcase SET ontime=datetime('now','localtime'),
-                                         run_status='{}',
-                                         run_user='{}',
-                                         rcd_handtime=datetime('now','localtime')
-                     WHERE info_key='{}'; 
-                     '''.format(status, runuser, info_key)
-            return self.runsql(sql)
-        except TypeError:
-            return None
+
+        sql = '''UPDATE testcase SET ontime=datetime('now','localtime'),
+                                     run_status='{}',
+                                     run_user='{}',
+                                     rcd_handtime=datetime('now','localtime')
+                 WHERE info_key='{}'; 
+                 '''.format(status, runuser, info_key)
+        return self.runsql(sql)
 
     def get_casestatus(self, info_key, info_name):
-        try:
-            sql = "select run_status,info_name from testcase where info_key='{}' and info_name ='{}'; ".format(
-                info_key, info_name)
-            res = self.runsql(sql)
-            (status, name) = res.fetchone()
-            return status
-        except TypeError:
+
+        sql = "select run_status,info_name from testcase where info_key='{}' and info_name ='{}'; ".format(
+            info_key, info_name)
+        res = self.runsql(sql)
+        if not res:
             return 'unknown'
+        (status, name) = res.fetchone()
+        return status
 
     def get_suitestatus(self, info_key):
-        try:
-            ss = []
-            sql = "select run_status,info_name from testcase where info_key='{}'; ".format(
-                info_key)
-            res = self.runsql(sql)
-            for i in res:
-                (status, name) = i
-                ss.append(status)
 
-            if 'unknown' in ss or len(ss) == 0:
-                return 'unknown'
-            if 'FAIL' in ss:
-                return 'FAIL'
-            return 'PASS'
-        except TypeError:
+        ss = []
+        sql = "select run_status,info_name from testcase where info_key='{}'; ".format(
+            info_key)
+        res = self.runsql(sql)
+        if not res:
             return 'unknown'
+        for i in res:
+            (status, name) = i
+            ss.append(status)
+        if 'unknown' in ss or len(ss) == 0:
+            return 'unknown'
+        if 'FAIL' in ss:
+            return 'FAIL'
+        return 'PASS'
 
     def get_password(self, username):
-        try:
-            res = self.runsql(
-                "select username,passwordHash from user where username='{}'; ".format(username))
-            (name, passwd) = res.fetchone()
-            return passwd
-        except TypeError:
+
+        res = self.runsql(
+            "select username,passwordHash from user where username='{}'; ".format(username))
+        if not res:
             return None
+        (name, passwd) = res.fetchone()
+        return passwd
 
     def del_user(self, username):
         if username == 'Admin' or username == 'admin':
@@ -388,25 +387,15 @@ class TestDB():
         self.runsql(
             '''INSERT INTO project(projectname,owner,users) VALUES('Demo_Project','Admin','Admin');''')
         self.runsql(
-            '''INSERT INTO project(projectname,owner,users) VALUES('balance','Admin','Admin');''')
+            '''INSERT INTO project(projectname,owner,users) VALUES('darwen','Admin','Admin');''')
 
     def add_project(self, projectname, owner, users):
-        try:
-            self.runsql("INSERT INTO project(projectname,owner,users) VALUES('{}','{}','{}');".format(
-                projectname, owner, users))
-        except Exception as e:
-            log.error("Exception in add_project:{}".format(e))
-            return False
-        return True
+        return self.runsql("INSERT INTO project(projectname,owner,users) VALUES('{}','{}','{}');".format(
+            projectname, owner, users))
 
     def edit_project(self, pname, newname, owner):
-        try:
-            self.runsql("Update project set projectname = '{}' where projectname = '{}' and owner = '{}' ;".format(
-                newname, pname, owner))
-        except Exception as e:
-            log.error("Exception in add_project:{}".format(e))
-            return False
-        return True
+        return self.runsql("Update project set projectname = '{}' where projectname = '{}' and owner = '{}' ;".format(
+            newname, pname, owner))
 
     def add_projectuser(self, project, newuser):
         users = []
@@ -457,9 +446,12 @@ class TestDB():
 
     def get_projectowner(self, project):
 
-        res = self.runsql(
-            "select owner,projectname from project where projectname = '{}';".format(project))
-        (owner, project) = res.fetchone()
+        try:
+            res = self.runsql(
+                "select owner,projectname from project where projectname = '{}';".format(project))
+            (owner, project) = res.fetchone()
+        except Exception as e:
+            return "unknown"
 
         return owner
 
@@ -568,30 +560,24 @@ class TestDB():
         testproject = self.get_setting('test_project')
         projectversion = self.get_setting('test_projectversion')
 
-        try:
-            sql = '''INSERT into caserecord (info_key,info_name,info_testproject,info_projectversion,ontime,run_status,run_elapsedtime,run_user)
-                     SELECT                  info_key,info_name,'{}',            '{}',               ontime,run_status,run_elapsedtime,run_user
-                     FROM        testcase
-                     WHERE info_key='{}' and info_name='{}'; 
-                     '''.format(testproject, projectversion, info_key, info_name)
-            return self.runsql(sql)
-        except TypeError:
-            return None
+        sql = '''INSERT into caserecord (info_key,info_name,info_testproject,info_projectversion,ontime,run_status,run_elapsedtime,run_user)
+                 SELECT                  info_key,info_name,'{}',            '{}',               ontime,run_status,run_elapsedtime,run_user
+                 FROM        testcase
+                 WHERE info_key='{}' and info_name='{}'; 
+                 '''.format(testproject, projectversion, info_key, info_name)
+        return self.runsql(sql)
 
     def save_caserecord_d(self, info_key):
 
         testproject = self.get_setting('test_project')
         projectversion = self.get_setting('test_projectversion')
 
-        try:
-            sql = '''INSERT into caserecord (info_key,info_name,info_testproject,info_projectversion,ontime,run_status,run_elapsedtime,run_user)
-                     SELECT                  info_key,info_name,'{}',            '{}',               ontime,run_status,run_elapsedtime,run_user
-                     FROM        testcase
-                     WHERE info_key like '{}%' ; 
-                     '''.format(testproject, projectversion, info_key)
-            return self.runsql(sql)
-        except TypeError:
-            return None
+        sql = '''INSERT into caserecord (info_key,info_name,info_testproject,info_projectversion,ontime,run_status,run_elapsedtime,run_user)
+                 SELECT                  info_key,info_name,'{}',            '{}',               ontime,run_status,run_elapsedtime,run_user
+                 FROM        testcase
+                 WHERE info_key like '{}%' ; 
+                 '''.format(testproject, projectversion, info_key)
+        return self.runsql(sql)
 
     def createtb_loginfo(self):
         '''
@@ -610,13 +596,8 @@ class TestDB():
     def insert_loginfo(self, user, target, action, key, result=''):
         sql = ''' INSERT INTO loginfo(user,target,action,key,result) 
                   VALUES('{}','{}','{}','{}','{}');'''.format(user, target, action, key, result)
-        try:
-            res = self.runsql(sql)
-        except Exception as e:
-            log.error("loginfo Exception:"+sql)
-            return None
 
-        return res
+        return self.runsql(sql)
 
     def get_id(self):
         return self.DBID
@@ -653,15 +634,13 @@ class TestDB():
         suite_cases = []
 
         # update each robot file
-        try:
-            sql = "select info_key,info_name from testcase where info_key='{}'; ".format(
-                source)
-            res = self.runsql(sql)
-            for i in res:
-                (k, n) = i
-                suite_cases.append([k, n])
-        except Exception:
-            suite_cases = []
+
+        sql = "select info_key,info_name from testcase where info_key='{}'; ".format(
+            source)
+        res = self.runsql(sql)
+        for i in res:
+            (k, n) = i
+            suite_cases.append([k, n])
 
         # add new case
         for test in suite.testcase_table:
@@ -678,11 +657,11 @@ class TestDB():
                          WHERE info_key='{}' and info_name='{}';'''.format(tags, doc, info_key, info_name)
                 self.runsql(sql)
             else:
-                try:
-                    sql = "insert into testcase(info_key,info_name,info_tags, info_doc) \
-                    values('{}','{}','{}','{}');".format(info_key, info_name, tags, doc)
-                    self.runsql(sql)
-                except Exception as e:
+
+                sql = "insert into testcase(info_key,info_name,info_tags, info_doc) \
+                values('{}','{}','{}','{}');".format(info_key, info_name, tags, doc)
+                res = self.runsql(sql)
+                if not res:
                     log.error("Insert testcase Fail:{}".format(e))
 
                 if not mode == 'start':
@@ -815,4 +794,3 @@ if __name__ == '__main__':
     res = myDB.runsql("select user, target, action ,key from loginfo;")
     for u in res:
         print(u)
-

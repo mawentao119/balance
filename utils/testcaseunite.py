@@ -229,8 +229,9 @@ def do_unzip_project(temp_file, path):
         projectfile = ''
         project_content = ''
         for p in os.listdir(path):
-            if os.path.exists(os.path.join(path, p, 'darwen/conf/project.conf')):
-                projectfile = os.path.join(path, p, 'darwen/conf/project.conf')
+            if os.path.exists(os.path.join(path, p, 'platforminterface/project.conf')):
+                projectfile = os.path.join(
+                    path, p, 'platforminterface/project.conf')
                 project_content = os.path.join(path, p)
 
         if not projectfile:
