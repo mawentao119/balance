@@ -142,7 +142,7 @@ class Settings(Resource):
                 {"description": description, "item": item, "value": value, "demo": demo})
 
         setting_list["rows"].append(
-            {"description": "当前主项目", "item": "CUR_PROJECT", "value": self.app.config['DB'].get_user_main_project(session['username']), "demo": "使用该项目darwen/conf下的配置"})
+            {"description": "当前主项目", "item": "CUR_PROJECT", "value": self.app.config['DB'].get_user_main_project(session['username']), "demo": "使用该项目balance/conf下的配置"})
         setting_list["rows"].append(
             {"description": "项目目录(ENV)", "item": "ROBOT_DIR", "value": os.environ["ROBOT_DIR"], "demo": "${ROBOT_DIR}可用在robot文件中"})
         setting_list["rows"].append(

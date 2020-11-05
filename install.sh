@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-## Description: Online install Python-3 and darwen platform
+## Description: Online install Python-3 and balance platform
 ## Author: charisma 20191130
 
 echo "### Stage 0 : Copy file ..."
 
 echo "*** Delete tmp dir and  work dir ...... "
 
-tmpdir="/tmp/darwen1234"
-workdir="/data/darwen"
+tmpdir="/tmp/balance1234"
+workdir="/data/balance"
 
 rm -rf ${tmpdir}
 mkdir  ${tmpdir}
@@ -69,7 +69,7 @@ echo "### Stage 3 : Install Robot* test system"
 
 pyenv="py3env"
 
-echo "*** python3 -m virtualenv --no-site-packages /data/darwen/py3env"
+echo "*** python3 -m virtualenv --no-site-packages /data/balance/py3env"
 python3 -m virtualenv ${pyenv}
 echo "export PYENV=${pyenv}">>${pyenv}/bin/activate;
 echo "export LANG=zh_CN.UTF8">>${pyenv}/bin/activate;
@@ -79,7 +79,7 @@ echo "### Stage 4 : install requirments "
 
 cd ${workdir}
 
-srcdir="work/workspace/Admin/darwen"
+srcdir="work/workspace/Admin/balance"
 mkdir -p ${srcdir}
 mkdir -p work/DBs
 mkdir -p work/jobs

@@ -33,7 +33,7 @@ class Project(Resource):
         self.parser.add_argument('cron', type=str, default="* * * * * *")
         self.parser.add_argument('boolean', type=str, default="ON")
         self.log = getlogger("Project")
-        self.reserved_names = ["workspace", "project", "darwen"]
+        self.reserved_names = ["workspace", "project", "balance"]
         self.app = current_app._get_current_object()
 
     def get(self):

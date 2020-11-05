@@ -296,7 +296,7 @@ def project_readme():
             session['username'])
         project_path = app.config['DB'].get_project_path(main_project)
         project_ownreadme = os.path.join(project_path, 'ReadMe.md')
-        project_darwenreadme = os.path.join(project_path, 'darwen/ReadMe.md')
+        project_balancereadme = os.path.join(project_path, 'balance/ReadMe.md')
     except Exception as e:
         log.error("取得项目配置信息异常：{}".format(e))
 
@@ -305,7 +305,7 @@ def project_readme():
     elif os.path.exists(project_ownreadme):
         p_file = project_ownreadme
     else:
-        p_file = project_darwenreadme
+        p_file = project_balancereadme
 
     body = "<p>说明文件："+p_file+"</p> \n"
     if os.path.exists(p_file):

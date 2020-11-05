@@ -20,7 +20,7 @@ class TestDB():
 
         self.confdir = confdir
         self.dbpath = os.path.join(self.confdir, 'DBs')
-        self.exclude_suite = '/work/workspace/Admin/darwen'
+        self.exclude_suite = '/work/workspace/Admin/balance'
         self.refresh_interval = 180  # seconds
         self.refresh_time = self.get_timenow()
         self.DBIDFileName = 'TestCaseDB.id'
@@ -225,7 +225,7 @@ class TestDB():
     def init_project_settings(self, key):
         log.info("Load Settings from dir: {}".format(key))
 
-        if key.lower().endswith('darwen'):
+        if key.lower().endswith('balance'):
             return "Do not allowed config this project."
 
         settings_file = os.path.join(key, 'platforminterface/settings.conf')
@@ -387,7 +387,7 @@ class TestDB():
         # self.runsql(
         #     '''INSERT INTO project(projectname,owner,users) VALUES('Demo_Project','Admin','Admin');''')
         self.runsql(
-            '''INSERT INTO project(projectname,owner,users) VALUES('darwen','Admin','Admin');''')
+            '''INSERT INTO project(projectname,owner,users) VALUES('balance','Admin','Admin');''')
 
     def add_project(self, projectname, owner, users):
         return self.runsql("INSERT INTO project(projectname,owner,users) VALUES('{}','{}','{}');".format(
