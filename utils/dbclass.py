@@ -218,8 +218,6 @@ class TestDB():
         self.runsql(
             '''INSERT INTO settings values('自动化配置文件','test_env_conf',"runtime/env.conf",'建议自动化配置项自动生成','user');''')
         self.runsql(
-            '''INSERT INTO settings values('系统说明文件(ReadMe)','project_readme',"runtime/ReadMe.md",'建议自动化配置项自动生成','user');''')
-        self.runsql(
             '''INSERT INTO settings values('最大任务并发数','MAX_PROCS',"20",'只限制手工并发数','system');''')
 
     def init_project_settings(self, key):

@@ -286,33 +286,12 @@ def welcome():
     return render_template("welcome.html")
 
 
-@routes.route("/project_readme")
-def project_readme():
-    app = current_app._get_current_object()
+@routes.route("/first_page")
+def first_page():
+    grossinfo = {'totalratio': '80', 'handratio': '50', 'autoratio': '60',
+                 'total': [100,102,103],
+                 'hand': [80,90,100],
+                 'auto': [10,10,2]}
+    moduleinfo = {'modules':['a','b','c'], 'passed':[5,6,7], 'failed':[1,2,3], 'unknown':[1,1,1]}
 
-    try:
-        readmefile = app.config['DB'].get_setting('project_readme')
-        main_project = app.config['DB'].get_user_main_project(
-            session['username'])
-        project_path = app.config['DB'].get_project_path(main_project)
-        project_ownreadme = os.path.join(project_path, 'ReadMe.md')
-        project_balancereadme = os.path.join(project_path, 'balance/ReadMe.md')
-    except Exception as e:
-        log.error("取得项目配置信息异常：{}".format(e))
-
-    if os.path.exists(readmefile):
-        p_file = readmefile
-    elif os.path.exists(project_ownreadme):
-        p_file = project_ownreadme
-    else:
-        p_file = project_balancereadme
-
-    body = "<p>说明文件："+p_file+"</p> \n"
-    if os.path.exists(p_file):
-        with open(p_file, 'r') as f:
-            for l in f:
-                body += markdown.markdown(l) + '\n'
-    else:
-        log.error("找不到ReadMe文件:{}".format(p_file))
-        return render_template("welcome.html")
-    return render_template("project_readme.html", body=body)
+    return render_template("first_page.html",grossinfo=grossinfo, moduleinfo=moduleinfo, dir='abc')

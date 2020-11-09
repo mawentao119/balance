@@ -27,7 +27,7 @@
         <div class="easyui-panel">
             <a href="https://github.com/mawentao119/uniRobot.git" target="_blank" class="easyui-linkbutton"
                 data-options="plain:true"><img src="{{ url_for('static', filename='img/logo_header32.png') }}"
-                    alt="uniRobot" style="margin-top:5px;" /></a>
+                    alt="uniRobot" style="margin-top:0px;" /></a>
             <a href="#" onclick="addTab('测试环境', '/test_env/', 'icon-test_env')" class="easyui-linkbutton"
                 data-options="iconCls:'icon-test_env'">测试环境</a>
             <a href="#" onclick="addTab('任务管理', '/project_task/', 'icon-task_mng')" class="easyui-linkbutton"
@@ -45,8 +45,10 @@
             <a href="#" onclick="do_logout('{{ username }}');" class="easyui-linkbutton"
                 data-options="iconCls:'icon-logout'" style="float:right;margin-top:8px;margin-right:10px;">登出</a>
             {% if username == "Admin" %}
+            <a href="#" onclick="addTab('引擎管理', '/project_mng', 'icon-engine')" class="easyui-linkbutton"
+                data-options="iconCls:'icon-engine'" style="float:right;margin-top:8px;margin-right:10px;">引擎管理</a>
             <a href="#" onclick="addTab('项目管理', '/project_mng', 'icon-project_mng')" class="easyui-linkbutton"
-                data-options="iconCls:'icon-project_mng'" style="float:right;margin-top:8px;margin-right:10px;">项目管理</a>
+                data-options="iconCls:'icon-project_mng'" style="float:right;margin-top:8px;margin-right:5px;">项目管理</a>
             {% endif %}
             <a href="#" onclick="addTab('系统配置', '/settings', 'icon-settings')" class="easyui-linkbutton"
                 data-options="iconCls:'icon-settings'" style="float:right;margin-top:8px;margin-right:5px;">系统配置</a>
@@ -77,7 +79,9 @@
     </div>
 
     <div id="root_menu" class="easyui-menu" style="width:160px;">
-        <div onclick="addTab('User Guide', '/welcome', 'icon-workspace');" data-options="iconCls:'icon-workspace'">用户指南
+        <div onclick="addTab('First Page', '/first_page', 'icon-workspace');" data-options="iconCls:'icon-workspace'">首页
+        </div>
+        <div onclick="addTab('User Guide', '/welcome', 'icon-guide');" data-options="iconCls:'icon-guide'">使用指南
         </div>
         {% if username == "Admin" %}
         <div onclick="manage_project('create_project', 'create_project_ff', 'create')"
@@ -567,7 +571,7 @@
 </body>
 <SCRIPT type="text/javascript">
     $(function () {
-        addTab("项目说明", "/project_readme", "icon-guide");
+        addTab("首页", "/first_page", "icon-guide");
     });
 </SCRIPT>
 
